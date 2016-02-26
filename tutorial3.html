@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+https://www.youtube.com/watch?v=TR39nfAW1dw&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=3
+  <head>
+    <meta charset="utf-8">
+    <title> D3 page template </title>
+    <script src="d3.min.js" charset="utf-8"></script>
+  </head>
+
+  <body>
+
+    <p>
+      paragraph
+    </p>
+    <script>
+
+    //adding SVG shapes, 1) make canvas 2) add shape
+       var canvas = d3.select("body")
+                        .append("svg")
+                        .attr("width", 500) //note these are css elements, use attr for SVG CANVAS
+                        .attr("height", 500);
+
+       var circle = canvas.append("circle")
+                          .attr("cx", 250)       //cx : center horizontal COORDINATES
+                          .attr("cy", 250)
+                          .attr("r", 50) //radius
+                          .attr("fill", "red"); //fill is used for color w/ svg
+
+      var rect = canvas.append("rect") // *** no cordinates, so drawn in top left
+                        .attr("width", 100)
+                        .attr("height", 50);
+
+      var line = canvas.append("line")
+                        .attr("x1", 0)
+                        .attr("y1", 100)
+                        .attr("x2", 400)
+                        .attr("y2", 400)
+                        .attr("stroke", "green") // thickness 
+                        .attr("stroke-width", 10);
+
+
+    // d3.select("p").text("Hellooo"); selects <p>and makes the text
+    // d3.select("body")
+    // .append("p")
+    // .style("color", "red")      //effects css property
+    // .text("appended paragraph");
+    //  METHOD CHAINING:make a new paragraph and put text: get an element, append to it, specify tet
+
+
+    // console.log(d3); //in inspect in console, you can see the objects functions and stuff
+
+
+    </script>
+  </body>
+</html>

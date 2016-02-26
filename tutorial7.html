@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+
+  var canvas = d3.select("body") //create a canvas in the body container
+  .append("svg") //so it can use svg
+  .attr("width", 500)
+  .attr("height", 500);
+
+  //Case 1: DOM elements < data
+  // all data is in exit (from .exit() ) since none have been bound to DOM elements
+  // var data = [10];
+  //
+  // var circle = canvas.append("circle")
+  // .attr("cx", 50)
+  // .attr("cy", 100)
+  // .attr("r", 25);
+  // //note default color is black
+  // var circle = canvas.selectAll("circle") //returns the empty selection, since we have no circle elements
+  // //since the SVG container was empty, the parent node is the SVG container
+  // .data(data) //bind the svg elements to data
+  // .enter()
+  // //"enter selection contains all data elements that are unbound to  existing circles"
+  // //creates placeholder nodes for each data element that didn't have a DOM element
+  // //which is all of them in this case
+  // //if there were more DOM elements than data we use .exit()??
+  // .append ("circle")//add missing elements to the SVG container
+  // .attr("cx", 50)
+  // .attr("cy", 50)
+  // .attr("r", 25);
+
+  //*** So we added a circle without data, but then bound + appended circles to data...
+  // why didn't we get two circles from that? because selectAll("circle") didn't return an empty selection
+  // enter: but there were no placeholders for data elements that had no DOM elements
+
+
+  //Case 1 ... :#  DOM < data
+  // one of the elements is not bound, so ONLY it is returned from .exit()
+  // var data = [10, 20];
+  //
+  // var circle = canvas.append("circle")
+  // .attr("cx", 50)
+  // .attr("cy", 100) //appears below, inspect element when in doubt!!!!!!!
+  // .attr("r", 25);
+  //
+  //
+  // //note default color is black
+  // var circle = canvas.selectAll("circle") //there is one circle to be selected!!
+  // .data(data) //bind the svg elements (circle) to data :
+  // //since we had a circle it gets bound to ONE data element
+  // .attr("fill", "red") //for the top circle (one that just got bound to 10)
+  // .enter()
+  // // placeholder for the unbound element is here : for 20
+  // .append ("circle")//add missing elements to the SVG container
+  // .attr("cx", 50)
+  // .attr("cy", 50)
+  // .attr("r", 25)
+  // .attr("fill", "green") //proves that .enter() applies to only 20- the unbound data element;
+
+//now we have two circles: why? because now 10 is bounded to the first circle we added, and 20 to a new one
+
+
+//Case 2: Enter and Exit are equal (same number of data unbound as bound)
+// var data = [10, 20];
+//
+// var circle1 = canvas.append("circle")
+// .attr("cx", 50)
+// .attr("cy", 100) //appears below, inspect element when in doubt!!!!!!!
+// .attr("r", 25);
+//
+// var circle2 = canvas.append("circle")
+// .attr("cx", 50)
+// .attr("cy", 200) //appears below, inspect element when in doubt!!!!!!!
+// .attr("r", 25);
+//
+//
+//
+// //note default color is black
+// var circle = canvas.selectAll("circle")
+// //*** Update selection has been returned , so we will update the existing circles
+//
+// //returns the empty selection, since we have no circle elements
+// //since the SVG container was empty, the parent node is the SVG container
+// .data(data) //bind the svg elements to data :
+// //since we had a circle it gets bound to ONE data element
+// .attr("fill", "red") //for the top circle (one that just got bound to 10)
+// .enter()
+// // placeholder for the unbound element is here : for 20
+// .append ("circle")//add missing elements to the SVG container
+// .attr("cx", 50)
+// .attr("cy", 50)
+// .attr("r", 25)
+// .attr("fill", "green") //proves that .enter() applies to only 20- the unbound data element;
+
+//Case 3: Exit selection has elements : meaning there are more DOM elements than data: DOM > Data
+var data = [10];
+
+var circle1 = canvas.append("circle")
+.attr("cx", 50)
+.attr("cy", 100) // inspect element when in doubt!!!!!!!
+.attr("r", 25);
+
+var circle2 = canvas.append("circle")
+.attr("cx", 50)
+.attr("cy", 200)
+.attr("r", 25);
+
+
+var circle = canvas.selectAll("circle")
+//*** Update selection has been returned , so we will update the existing circles
+.data(data) //bind the svg elements to data :
+.attr("fill", "green") //so we bound 10 to circle1
+//how do we access that second circle?? With .exit()!
+.exit()
+  .attr("fill", "blue");
+
+
+//both are red why?? Because both belong to the update selection
+  </script>
+
+</body>
+</html>

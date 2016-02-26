@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+
+<!--https://www.youtube.com/watch?v=iMYkVLWc3y0&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT22p&index=5 -->
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+  <script>
+
+  var dataArray = [5, 15, 50, 60];
+  var width = 500;//so the largest value fits the exact width of the container
+  var height = 500;
+
+  var widthScale = d3.scale.linear()
+  .domain([0,60])//domain is the dataArray, here we give the original range
+  .range([0, width]); //range is what we want it to be scaled to
+  //adding SVG shapes, 1) make canvas 2) add shape
+
+  var axis = d3.svg.axis()
+  .scale(widthScale) //uses width scale
+  .ticks(5) //number of ticks (lines) to show on axis
+  ;
+
+  var color = d3.scale.linear()
+  .domain([0, 60])
+  .range(["red", "blue"])
+
+  var canvas = d3.select("body")
+  //^^^ creates a canvas to add shapes to and associates it with the body of the html
+  .append("svg")
+  .attr("width", width) //note these are css elements, use attr for SVG CANVAS
+  .attr("height", height)
+  .append("g") //so now the elements of the body (bars) are part of a group, which
+  //can be effected by svg
+  .attr("transform", "translate(20, 0)");
+
+
+
+
+  //bar chat!!!!!!
+  var bars = canvas.selectAll("rect")
+  //bars are rectangles, since there are no rectangles on our page
+  //this variable returns an empty selection (array)
+  .data(dataArray) //binds our dataArray to an empty selection of rectangles
+  .enter() //returns a selection of  placeholders for each data element
+  .append("rect") //for each data element we append a rectangle
+  .attr("width", function(d){ return widthScale(d);})
+  //makes width of EACH rectangle depend on the data in the array
+  //in this case each input is the output, so our rects will be of width 20, 40, 50
+  .attr("height", 50)
+  .attr("y", function(d, i) {return i*100;})
+  //i = index of element, so now each bar will start below one another
+  //  .attr("y", function(d, i) {return i*100;}; //i = index of element
+  .attr("fill", function(d){return color(d);});
+
+
+//adding the axis:
+//WRONG: canvas.attr("transform", "translate(0, 400)").call(axis); // this will effect the bars
+
+canvas.append("g") //adds a NEW group to our canvas
+.attr("transform", "translate(0, 400)") //moves it below the bars
+.call(axis); //adds the axis
+
+
+
+  </script>
+</body>
+</html>
