@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+
+  //Vienno's way for loading JSON
+  //file path, callback function: code will be loaded after data is loaded
+  //storing the JSON data in the arg for function
+  d3.json("tutorial10.json", function (data) {
+
+    var canvas = d3.select("body").append("svg")
+    .attr("width", 500)
+    .attr("height", 500)
+
+
+    console.log(data[0]);
+    console.log(data[0]['name']); //works
+    console.log(data[0].age); // works
+
+    canvas.selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("width", function(d){ return d.age * 10;}) //width will be based the age
+    //.attr("width", 100)
+    .attr("height", 48)
+    .attr("y", function(d,i){ return i * 50;})
+    .attr("fill", "blue")
+
+    //adding text to each bar:
+    canvas.selectAll("text")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("fill", "white")
+    .attr("y", function(d,i){ return i * 50 + 24;}) //+24 moves the names up
+    .text(function(d) {return d.name})
+     //sets the text element we appended to be based on the name key
+
+
+  });
+
+  </script>
+
+</body>
+</html>

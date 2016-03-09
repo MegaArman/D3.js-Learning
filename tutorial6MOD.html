@@ -7,6 +7,23 @@
   <meta charset="utf-8">
   <title> D3 page template </title>
   <script src="d3.min.js" charset="utf-8"></script>
+  <style type="text/css">
+
+  			.axis path,
+  			.axis line {
+  				fill: none;
+  				stroke: black;
+  				shape-rendering: crispEdges;
+  			}
+
+  			.axis text {
+  				font-family: sans-serif;
+  				font-size: 11px;
+  			}
+
+  		</style>
+
+
 </head>
 
 <body>
@@ -67,7 +84,11 @@ canvas.append("g") //adds a NEW group to our canvas
 .attr("transform", "translate(0, 400)") //moves it below the bars
 .call(axis); //adds the axis
 
+var axis2 = d3.svg.axis().text("poo");//number of ticks (lines) to show on axis
 
+canvas.append("g")
+.attr("transform", "translate(400, 0)")
+.call(axis2);
 
 
   </script>

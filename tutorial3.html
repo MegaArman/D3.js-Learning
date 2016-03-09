@@ -9,7 +9,12 @@ https://www.youtube.com/watch?v=TR39nfAW1dw&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT
   </head>
 
   <body>
-
+    <svg id="mySvg" width="80" height="80">
+      <defs id="mdef">
+        <pattern id="image" x="0" y="0" height="40" width="40">
+          <image x="0" y="0" width="40" height="40" xlink:href="http://www.e-pint.com/epint.jpg"></image>
+        </pattern>
+  </defs>
     <p>
       paragraph
     </p>
@@ -36,7 +41,7 @@ https://www.youtube.com/watch?v=TR39nfAW1dw&list=PL6il2r9i3BqH9PmbOf5wA5E1wOG3FT
                         .attr("y1", 100)
                         .attr("x2", 400)
                         .attr("y2", 400)
-                        .attr("stroke", "green") // thickness 
+                        .attr("stroke", "green") // thickness
                         .attr("stroke-width", 10);
 
 

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+  var canvas = d3.select("body")
+  .append("svg")
+  .attr("width", 500)
+  .attr("height", 500);
+
+  var circle = canvas.append("circle")
+  .attr("cx", 50)
+  .attr("cy", 50)
+  .attr("r", 25);
+
+  // circle.transition()
+  //       .duration(1500) //in ms
+  //       .delay(2000)
+  //       .attr("cx", 150) //move it to the right
+  //       .attr("cy", 150);
+
+  // circle.transition()
+  //       .duration(1500) //in ms
+  //       .attr("cx", 150) //move it to the right
+  //       .transition() //second transition below here
+  //       .attr("cy", 200)
+  //       .transition()
+  //       .attr("cx", 50);
+
+  circle.transition()
+  .duration(1500)
+  .attr("cx", 150)
+   //event listener: when transition ends, do function
+   //"this" being the circle
+   .each("end", function(){ d3.select(this).attr("fill", "red")})
+
+  </script>
+
+</body>
+</html>

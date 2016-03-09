@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+  var canvas = d3.select("body").append("svg")
+  .attr("width", 800)
+  .attr("height", 500);
+
+  var data = [
+    {x:10, y: 20},
+    {x: 40, y: 60},
+    {x: 50, y: 70},
+  ];
+
+  var group = canvas.append("g")
+  .attr("transform", "translate(100, 100)"); //translation being a movement
+  //The transform property applies a 2D or 3D transformation to an element
+
+  var line = d3.svg.line() //our path generator
+  .x(function(d){ return d.x; }) //x coords for the line
+  .y(function(d){ return d.y; })
+
+  //we want a single path for everything in our array
+  group.selectAll("path")
+  .data([data])
+  //***pass the data as an array for a single path for all items of data
+  .enter()
+  //bound our data to our empty selection
+  .append("path") //make a path element for each data element (one for all in this case)
+  .attr("d", line) //line is translating our data into a path string
+  .attr("fill", "none")
+  .attr("stroke", "#000") //thin black line
+  .attr("stroke-width", 10);
+
+  </script>
+
+</body>
+</html>
