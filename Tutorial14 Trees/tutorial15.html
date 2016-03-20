@@ -1,0 +1,70 @@
+
+<!-- http://jsonlint.com/ to check if JSON is valid-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+
+  var canvas = d3.select("body").append("svg")
+  .attr("width", 500)
+  .attr("height", 500)
+  .append("g")
+  .attr("transform", "translate(50, 50)");
+
+  var tree = d3.layout.tree()
+  .size([400, 400]);
+
+  //"callback function" : function passed as an argument to another function
+  d3.json("mydata.json", function(data) {
+
+    var nodes = tree.nodes(data); //returns array of nodes for all objects in our data
+    // console.log(nodes);
+    var links = tree.links(nodes); //returns an array of links for all nodes
+    //each link has a source and target for coordinates
+    //  console.log(links);
+
+    var node = canvas.selectAll(".node") //returns empty selection since there were no nodes
+    .data(nodes) //bind our data
+    .enter() //returns placeholder nodes for data without DOM elements
+    .append("g") //gives each object a g element
+    .attr("class", "node") //gives it a class of node
+    .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")";})
+
+    node.append("circle")
+    .attr("r", 5)
+    .attr("fill", "steelblue");
+
+    node.append("text")
+    .text(function (d) { return d.name; })
+    // .attr("x" , 10)
+    // .attr("y", 10);
+
+    var diagonal = d3.svg.diagonal() //connector generator
+    .projection(function(d){ return [d.y, d.x]; }) ;
+    //converts start eand end point of each connector
+
+    canvas.selectAll(".link")
+    .data(links)
+    .enter()
+    .append("path")
+    .attr("class", "link")
+    .attr("fill", "none")
+    .attr("stroke", "grey")
+    .attr("d", diagonal);
+
+  });
+
+  </script>
+
+</body>
+</html>

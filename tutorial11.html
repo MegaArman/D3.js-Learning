@@ -31,7 +31,7 @@
   .y(function(d){ return d.y; })
 
   //we want a single path for everything in our array
-  group.selectAll("path")
+  group.selectAll("path") //since there are no path classes, it returns an empty selection (Array)
   .data([data])
   //***pass the data as an array for a single path for all items of data
   .enter()

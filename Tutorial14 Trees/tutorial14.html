@@ -1,0 +1,37 @@
+
+<!-- http://jsonlint.com/ to check if JSON is valid-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+
+  var canvas = d3.select("body").append("svg")
+  .attr("width", 500)
+  .attr("height", 500);
+
+  //path generator: needs source object and target object
+  var diagonal = d3.svg.diagonal()
+  .source({x: 10, y : 10}) //start point
+  .target({x: 300, y: 300}); //end point
+
+
+  canvas.append("path")
+  .attr("fill", "none")
+  .attr("stroke", "black")
+  .attr("d", diagonal);
+
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3 page template </title>
+  <script src="d3.min.js" charset="utf-8">
+  // the library at local file d3.min.js
+  // will be used for all scripts
+  </script>
+</head>
+
+<body>
+  <script>
+
+  var data = [10, 50, 80];
+  var r = 300;
+
+  var color = d3.scale.ordinal() //oridinal means the input might not be a continious domain
+  .range(["red", "blue", "orange"]);
+
+  var canvas = d3.select("body").append("svg")
+  .attr("width", 1500)
+  .attr("height", 1500);
+
+  var group = canvas.append("g")
+  .attr("transform", "translate(300, 300)");
+
+
+//Donut chart code:
+  var arc = d3.svg.arc() //arc path generator (see tutorial 12)
+  .innerRadius(r-100)
+  .outerRadius(r);
+
+//Pie chart code:
+// var arc = d3.svg.arc() //arc path generator (see tutorial 12)
+// .innerRadius(0)
+// .outerRadius(r);
+
+  //to invoke pie we do pie()
+  var pie = d3.layout.pie()
+  .value(function(d){ return d;});
+
+  var arcs = group.selectAll(".arc") //select everything that is of class "arc"
+  .data(pie(data)) //bind our data to the selection,
+  // but pass it through the pie layout (returns an object with start and end angle)
+  .enter() //so we don't need a for loop
+  //Returns the enter selection: placeholder nodes for each data element for
+  //which no corresponding existing DOM element was found in the current selection
+  .append("g") //appends group for each data element
+  .attr("class", "arc"); //see notes at 1) for what happens at this point in the console...
+  //each data element has had an arc path generated
+
+
+  arcs.append("path") //appends a path to each data element
+  .attr("d", arc)
+  //d  being an element in the array
+  // will fetch the path data from the arc path generator (inner and outer radius)
+  //and the arc generator will also get the start and end angle from .data(pie(data))
+  .attr("fill", function(d){ return color(d.data);}); //d.data being the value of the array element
+
+
+//appending text to each arc
+  arcs.append("text")
+  .attr("transform", function(d){ return "translate(" + arc.centroid(d) +")";})
+  //centroid returns the center of each arc in our data
+  .attr("text-anchor", "middle") //centers it better
+  .attr("font-size", "1.5em")
+  .text(function(d){ return d.data;});
+//woohooooo , now we have a chart!!
+
+  </script>
+
+</body>
+</html>
